@@ -10,15 +10,14 @@ def sort_items(folder):
     for filename in os.listdir(folder_path):
         img_path = os.path.join(folder_path, filename)
 		
-        img = Image.open(img_path)
-        converted_img = img.convert("RGB")
+        with Image.open(img_path) as img:
+            converted_img = img.convert("RGB")
 
-        new_filename = f"{folder}_{img_number}.jpg"
-        new_path = os.path.join(folder_path, new_filename)
+            new_filename = f"{folder}_{img_number}.jpg"
+            new_path = os.path.join(folder_path, new_filename)
 
-        converted_img.save(new_path, "JPEG")
-        os.remove(img_path)
-
+            converted_img.save(new_path, "JPEG")
+            os.remove(img_path)
         img_number += 1
 
 
