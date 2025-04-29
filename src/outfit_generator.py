@@ -4,16 +4,17 @@ import pygame
 def main():
 	pygame.init()
 	pygame.display.set_caption("Cher's Outfit Generator")
-	resolution = (800, 600)
+	resolution = (1920, 1080)
 	screen = pygame.display.set_mode(resolution)
+	bg_tile = (pygame.image.load("background/background.png").convert())
 	
 	running = True
 	while running: 
 		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
+			keys = pygame.key.get_pressed()
+			if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
 				running = False
-		black = pygame.Color(0, 0, 0)
-		screen.fill(black)
+		screen.blit(bg_tile, (0,0))
 		pygame.display.flip()
 	pygame.quit()
 		
