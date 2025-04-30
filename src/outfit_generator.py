@@ -33,21 +33,22 @@ def organize_items(folder, items_list):
     sort_images(folder, items_list)
 
 
-def paste_image(item, location_x, location_y):
-	with Image.open(item) as img:
-		img.paste(img, (location_x, location_y))
+def paste_image(screen, item, location_x, location_y):
+	image = pygame.image.load(item).convert()
+	screen.blit(image, (location_x, location_y))
 
 
-def run_program(screen, bg_tile):
-	running = True
-	while running: 
-		for event in pygame.event.get():
-			keys = pygame.key.get_pressed()
-			if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
-				running = False
-		screen.blit(bg_tile, (0,0))
-		pygame.display.flip()
-	pygame.quit()
+def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
+    running = True
+    while running: 
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
+                running = False
+        screen.blit(bg_tile, (0,0))
+        paste_image(screen, tops_list[1], 0, 0)
+        pygame.display.flip()
+    pygame.quit()
 
 
 def main():
@@ -61,7 +62,7 @@ def main():
 	organize_items('tops', tops_list)
 	organize_items('bottoms', bottoms_list)
 	organize_items('shoes', shoes_list)
-	run_program(screen, bg_tile)
+	run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list)
 		
 
 if __name__ == "__main__":
