@@ -24,6 +24,11 @@ def organize_items(folder):
             img_number += 1
 
 
+def paste_image(item, location_x, location_y):
+	with Image.open(item) as img:
+		img.paste(img, (location_x, location_y))
+
+
 def run_program(screen, bg_tile):
 	running = True
 	while running: 
