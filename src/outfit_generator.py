@@ -3,7 +3,15 @@ import os
 import pygame
 
 
-def organize_items(folder):
+
+def sort_images(folder, items_list):
+    folder_contents = os.listdir(folder)
+    for file in folder_contents:
+        items_list.append(os.path.join(folder, file))
+    items_list.sort()
+	
+
+def organize_items(folder, items_list):
     folder_path = os.path.abspath(folder)
     img_number = 1
 	
@@ -22,6 +30,7 @@ def organize_items(folder):
                 converted_img.save(new_path, "JPEG")
             os.remove(img_path)
             img_number += 1
+    sort_images(folder, items_list)
 
 
 def paste_image(item, location_x, location_y):
@@ -46,9 +55,12 @@ def main():
 	resolution = (1920, 1080)
 	screen = pygame.display.set_mode(resolution)
 	bg_tile = (pygame.image.load("background/background.png").convert())
-	organize_items('tops')
-	organize_items('bottoms')
-	organize_items('shoes')
+	tops_list = []
+	bottoms_list = []
+	shoes_list = []
+	organize_items('tops', tops_list)
+	organize_items('bottoms', bottoms_list)
+	organize_items('shoes', shoes_list)
 	run_program(screen, bg_tile)
 		
 
