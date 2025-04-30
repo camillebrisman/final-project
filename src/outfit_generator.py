@@ -36,9 +36,10 @@ def organize_items(folder, items_list, height):
     sort_images(folder, items_list)
 
 
-def paste_image(screen, item, location_x, location_y):
-	image = pygame.image.load(item).convert()
-	screen.blit(image, (location_x, location_y))
+def paste_image(screen, item, location_y):
+    image = pygame.image.load(item).convert()
+    x = (1920 - image.get_width()) // 2
+    screen.blit(image, (x, location_y))
 
 
 def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
@@ -49,9 +50,9 @@ def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
         screen.blit(bg_tile, (0,0))
-        paste_image(screen, tops_list[0], 0, 60)
-        paste_image(screen, bottoms_list[0], 0, 400)
-        paste_image(screen, shoes_list[0], 0, 740)
+        paste_image(screen, tops_list[0], 60)
+        paste_image(screen, bottoms_list[0], 400)
+        paste_image(screen, shoes_list[0], 740)
         pygame.display.flip()
     pygame.quit()
 
