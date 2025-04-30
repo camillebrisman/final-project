@@ -24,7 +24,7 @@ def organize_items(folder, items_list):
             with Image.open(img_path) as img:
                 converted_img = img.convert("RGB")
 
-                new_filename = f"{folder}_{img_number}.jpg"
+                new_filename = f"{folder}_{img_number:02}.jpg"
                 new_path = os.path.join(folder_path, new_filename)
 
                 converted_img.save(new_path, "JPEG")
