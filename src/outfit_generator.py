@@ -3,6 +3,9 @@ import os
 import pygame
 
 
+class Button():
+    ...
+
 
 def sort_images(folder, items_list):
     folder_contents = os.listdir(folder)
@@ -45,6 +48,19 @@ def paste_image(screen, item, location_x, location_y, items_index):
         screen.blit(image, (location_x, location_y))
 
 
+#def draw_buttons(image):
+    #Get size of image and location
+    #ok idk what i'm doing, probably don't need this
+    #need to make buttons based off of bg images
+    #prob should make button class
+    #...
+
+
+#def make_buttons(save_image, right_arrow, left_arrow, title_icon,
+                 #randomize_group):
+    #...
+
+
 def paste_background(screen, items_index):
     save_image = "background/save_group.png"
     right_arrow = "background/right_arrow.png"
@@ -60,9 +76,17 @@ def paste_background(screen, items_index):
     paste_image(screen, left_arrow, 550, 740, items_index)
     paste_image(screen, title_icon, 0, 0, items_index)
     paste_image(screen, randomize_group, 1400, 325, items_index)
+    #make_buttons(save_image, right_arrow, left_arrow, title_icon,
+                 #randomize_group)
 
 
-def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list, items_index):
+def paste_clothes(screen, tops_list, bottoms_list, shoes_list, items_index):
+    paste_image(screen, tops_list[0], 0, 60, items_index)
+    paste_image(screen, bottoms_list[0], 0,  400, items_index)
+    paste_image(screen, shoes_list[0], 0, 740, items_index)
+
+
+def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
     running = True
     while running: 
         for event in pygame.event.get():
@@ -71,9 +95,8 @@ def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list, items_inde
                 running = False
         screen.blit(bg_tile, (0,0))
         paste_background(screen, items_index=1)
-        paste_image(screen, tops_list[0], 0, 60, items_index=0)
-        paste_image(screen, bottoms_list[0], 0,  400, items_index=0)
-        paste_image(screen, shoes_list[0], 0, 740, items_index=0)
+        paste_clothes(screen, tops_list, bottoms_list, shoes_list,
+                      items_index=0)
         pygame.display.flip()
     pygame.quit()
 
@@ -86,13 +109,12 @@ def main():
     tops_list = []
     bottoms_list = []
     shoes_list = []
-    items_index = [0, 1]
     clothes_height = 280
     shoes_height = 140
     organize_items('tops', tops_list, clothes_height)
     organize_items('bottoms', bottoms_list, clothes_height)
     organize_items('shoes', shoes_list, shoes_height)
-    run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list, items_index)
+    run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list)
 		
 
 if __name__ == "__main__":
