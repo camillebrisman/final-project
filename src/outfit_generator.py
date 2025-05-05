@@ -3,10 +3,6 @@ import os
 import pygame
 
 
-class Button():
-    ...
-
-
 def sort_images(folder, items_list):
     folder_contents = os.listdir(folder)
     for file in folder_contents:
@@ -46,38 +42,35 @@ def paste_image(screen, item, location_x, location_y, items_index):
         screen.blit(image, (x, location_y))
     if items_index == 1:
         screen.blit(image, (location_x, location_y))
-
-
-#def draw_buttons(image):
-    #Get size of image and location
-    #ok idk what i'm doing, probably don't need this
-    #need to make buttons based off of bg images
-    #prob should make button class
-    #...
-
-
-#def make_buttons(save_image, right_arrow, left_arrow, title_icon,
-                 #randomize_group):
-    #...
+        return pygame.Rect(x, location_y, image.get_width(), image.get_height())
 
 
 def paste_background(screen, items_index):
+    buttons = {}
+
     save_image = "background/save_group.png"
     right_arrow = "background/right_arrow.png"
     left_arrow = "background/left_arrow.png"
     title_icon = "background/title_icon.png"
     randomize_group = "background/randomize_group.png"
+
     paste_image(screen, save_image, 0, (500), items_index)
-    paste_image(screen, right_arrow, 1150, 60, items_index)
-    paste_image(screen, right_arrow, 1150, 400, items_index)
-    paste_image(screen, right_arrow, 1150, 740, items_index)
-    paste_image(screen, left_arrow, 550, 60, items_index)
-    paste_image(screen, left_arrow, 550, 400, items_index)
-    paste_image(screen, left_arrow, 550, 740, items_index)
+    buttons['tops_arrow_r'] = paste_image(screen, right_arrow, 
+                                          1150, 60, items_index)
+    buttons['bottoms_arrow_r'] = paste_image(screen, right_arrow, 
+                                             1150, 400, items_index)
+    buttons['shoes_arrow_r'] = paste_image(screen, right_arrow, 
+                                           1150, 740, items_index)
+    buttons['tops_arrow_l'] = paste_image(screen, left_arrow, 
+                                          550, 60, items_index)
+    buttons['bottoms_arrow_l'] = paste_image(screen, left_arrow, 
+                                             550, 400, items_index)
+    buttons['shoes_arrow_l'] = paste_image(screen, left_arrow, 
+                                           550, 740, items_index)
     paste_image(screen, title_icon, 0, 0, items_index)
     paste_image(screen, randomize_group, 1400, 325, items_index)
-    #make_buttons(save_image, right_arrow, left_arrow, title_icon,
-                 #randomize_group)
+
+    return buttons
 
 
 def paste_clothes(screen, tops_list, bottoms_list, shoes_list, items_index):
@@ -94,9 +87,17 @@ def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
         screen.blit(bg_tile, (0,0))
-        paste_background(screen, items_index=1)
+        buttons = paste_background(screen, items_index=1)
         paste_clothes(screen, tops_list, bottoms_list, shoes_list,
                       items_index=0)
+        
+        pos = pygame.mouse.get_pos()
+        for name, rect in buttons.items():
+            if rect.collidepoint(pos):
+                print(f"hovering over: {name}")
+            if pygame.mouse.get_pressed()[0]:
+                print(f"clicked on {name}")
+
         pygame.display.flip()
     pygame.quit()
 
