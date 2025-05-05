@@ -36,13 +36,33 @@ def organize_items(folder, items_list, height):
     sort_images(folder, items_list)
 
 
-def paste_image(screen, item, location_y):
-    image = pygame.image.load(item).convert()
+def paste_image(screen, item, location_x, location_y, items_index):
+    image = pygame.image.load(item).convert_alpha()
     x = (1920 - image.get_width()) // 2
-    screen.blit(image, (x, location_y))
+    if items_index == 0:
+        screen.blit(image, (x, location_y))
+    if items_index == 1:
+        screen.blit(image, (location_x, location_y))
 
 
-def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
+def paste_background(screen, items_index):
+    save_image = "background/save_group.png"
+    right_arrow = "background/right_arrow.png"
+    left_arrow = "background/left_arrow.png"
+    title_icon = "background/title_icon.png"
+    randomize_group = "background/randomize_group.png"
+    paste_image(screen, save_image, 0, (500), items_index)
+    paste_image(screen, right_arrow, 1150, 60, items_index)
+    paste_image(screen, right_arrow, 1150, 400, items_index)
+    paste_image(screen, right_arrow, 1150, 740, items_index)
+    paste_image(screen, left_arrow, 550, 60, items_index)
+    paste_image(screen, left_arrow, 550, 400, items_index)
+    paste_image(screen, left_arrow, 550, 740, items_index)
+    paste_image(screen, title_icon, 0, 0, items_index)
+    paste_image(screen, randomize_group, 1400, 325, items_index)
+
+
+def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list, items_index):
     running = True
     while running: 
         for event in pygame.event.get():
@@ -50,9 +70,10 @@ def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
         screen.blit(bg_tile, (0,0))
-        paste_image(screen, tops_list[0], 60)
-        paste_image(screen, bottoms_list[0], 400)
-        paste_image(screen, shoes_list[0], 740)
+        paste_background(screen, items_index=1)
+        paste_image(screen, tops_list[0], 0, 60, items_index=0)
+        paste_image(screen, bottoms_list[0], 0,  400, items_index=0)
+        paste_image(screen, shoes_list[0], 0, 740, items_index=0)
         pygame.display.flip()
     pygame.quit()
 
@@ -65,12 +86,13 @@ def main():
     tops_list = []
     bottoms_list = []
     shoes_list = []
+    items_index = [0, 1]
     clothes_height = 280
     shoes_height = 140
     organize_items('tops', tops_list, clothes_height)
     organize_items('bottoms', bottoms_list, clothes_height)
     organize_items('shoes', shoes_list, shoes_height)
-    run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list)
+    run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list, items_index)
 		
 
 if __name__ == "__main__":
