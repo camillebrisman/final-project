@@ -79,15 +79,15 @@ def paste_clothes(screen, tops_list, bottoms_list, shoes_list, items_index):
     paste_image(screen, shoes_list, 0, 740, items_index)
 
 
-def change_clothes(clothes_index, arrow):
+def change_clothes(clothes_list, clothes_index, arrow):
     if arrow ==1:
         clothes_index += 1
-        if clothes_index > 10:
+        if clothes_index > (len(clothes_list)-1):
             clothes_index = 0
     if arrow ==2:
         clothes_index -= 1
         if clothes_index < 0:
-            clothes_index = 10
+            clothes_index = (len(clothes_list)-1)
     return clothes_index
 
 
@@ -111,11 +111,10 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
                 print(f"hovering over: {name}")
             if pygame.mouse.get_pressed()[0]:
                 if name == 'tops_arrow_r':
-                    tops_index = change_clothes(tops_index, arrow=1)
+                    tops_index = change_clothes(tops_list, tops_index, arrow=1)
                     pygame.time.wait(300)
                     paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
                                   shoes_list[shoes_index], items_index=0)
-                print(f"clicked on {name}")
 
         pygame.display.flip()
     pygame.quit()
