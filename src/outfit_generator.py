@@ -46,7 +46,7 @@ def paste_image(screen, item, location_x, location_y, items_index):
 
 
 def paste_background(screen, items_index):
-    buttons = {}
+    arrow_buttons = {}
 
     save_image = "background/save_group.png"
     right_arrow = "background/right_arrow.png"
@@ -55,47 +55,66 @@ def paste_background(screen, items_index):
     randomize_group = "background/randomize_group.png"
 
     paste_image(screen, save_image, 0, (500), items_index)
-    buttons['tops_arrow_r'] = paste_image(screen, right_arrow, 
+    arrow_buttons['tops_arrow_r'] = paste_image(screen, right_arrow, 
                                           1150, 60, items_index)
-    buttons['bottoms_arrow_r'] = paste_image(screen, right_arrow, 
+    arrow_buttons['bottoms_arrow_r'] = paste_image(screen, right_arrow, 
                                              1150, 400, items_index)
-    buttons['shoes_arrow_r'] = paste_image(screen, right_arrow, 
+    arrow_buttons['shoes_arrow_r'] = paste_image(screen, right_arrow, 
                                            1150, 740, items_index)
-    buttons['tops_arrow_l'] = paste_image(screen, left_arrow, 
+    arrow_buttons['tops_arrow_l'] = paste_image(screen, left_arrow, 
                                           550, 60, items_index)
-    buttons['bottoms_arrow_l'] = paste_image(screen, left_arrow, 
+    arrow_buttons['bottoms_arrow_l'] = paste_image(screen, left_arrow, 
                                              550, 400, items_index)
-    buttons['shoes_arrow_l'] = paste_image(screen, left_arrow, 
+    arrow_buttons['shoes_arrow_l'] = paste_image(screen, left_arrow, 
                                            550, 740, items_index)
     paste_image(screen, title_icon, 0, 0, items_index)
     paste_image(screen, randomize_group, 1400, 325, items_index)
 
-    return buttons
+    return arrow_buttons
 
 
 def paste_clothes(screen, tops_list, bottoms_list, shoes_list, items_index):
-    paste_image(screen, tops_list[0], 0, 60, items_index)
-    paste_image(screen, bottoms_list[0], 0,  400, items_index)
-    paste_image(screen, shoes_list[0], 0, 740, items_index)
+    paste_image(screen, tops_list, 0, 60, items_index)
+    paste_image(screen, bottoms_list, 0,  400, items_index)
+    paste_image(screen, shoes_list, 0, 740, items_index)
 
 
-def run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list):
+def change_clothes(clothes_index, arrow):
+    if arrow ==1:
+        clothes_index += 1
+        if clothes_index > 10:
+            clothes_index = 0
+    if arrow ==2:
+        clothes_index -= 1
+        if clothes_index < 0:
+            clothes_index = 10
+    return clothes_index
+
+
+def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
+                bottoms_index, shoes_list, shoes_index):
     running = True
     while running: 
         for event in pygame.event.get():
             keys = pygame.key.get_pressed()
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
+        
         screen.blit(bg_tile, (0,0))
-        buttons = paste_background(screen, items_index=1)
-        paste_clothes(screen, tops_list, bottoms_list, shoes_list,
-                      items_index=0)
+        arrow_buttons = paste_background(screen, items_index=1)
+        paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
+                      shoes_list[shoes_index], items_index=0)
         
         pos = pygame.mouse.get_pos()
-        for name, rect in buttons.items():
+        for name, rect in arrow_buttons.items():
             if rect.collidepoint(pos):
                 print(f"hovering over: {name}")
             if pygame.mouse.get_pressed()[0]:
+                if name == 'tops_arrow_r':
+                    tops_index = change_clothes(tops_index, arrow=1)
+                    pygame.time.wait(300)
+                    paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
+                                  shoes_list[shoes_index], items_index=0)
                 print(f"clicked on {name}")
 
         pygame.display.flip()
@@ -108,14 +127,18 @@ def main():
     screen = pygame.display.set_mode(resolution)
     bg_tile = (pygame.image.load("background/background.png").convert())
     tops_list = []
+    tops_index = 0
     bottoms_list = []
+    bottoms_index = 0
     shoes_list = []
+    shoes_index = 0
     clothes_height = 280
     shoes_height = 140
     organize_items('tops', tops_list, clothes_height)
     organize_items('bottoms', bottoms_list, clothes_height)
     organize_items('shoes', shoes_list, shoes_height)
-    run_program(screen, bg_tile, tops_list, bottoms_list, shoes_list)
+    run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
+                bottoms_index, shoes_list, shoes_index)
 		
 
 if __name__ == "__main__":
