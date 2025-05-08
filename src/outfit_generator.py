@@ -73,7 +73,7 @@ def paste_background(screen, items_index):
     buttons['shoes_arrow_l'] = paste_image(screen, left_arrow, 
                                            550, 740, items_index)
     paste_image(screen, title_icon, 0, 0, items_index)
-    paste_image(screen, randomize_group, 1400, 325, items_index)
+    buttons['randomize'] = paste_image(screen, randomize_group, 1400, 325, items_index)
 
     return buttons
 
@@ -147,18 +147,14 @@ def get_outfit_name(screen, folder_path):
                     user_text = user_text[:-1]
                 else:
                     user_text += event.unicode
-        #full_text = prompt + user_text
-        #text_surface = base_font.render(full_text, True, (200, 100, 150))
-        #screen.blit(text_surface, (30, 690))
-        #pygame.display.flip()
-        #CLOCK.tick(30)
+
             load_text(prompt, user_text, base_font, screen)
     if not user_text.strip():
         user_text = unnamed_outfit(folder_path)
     return user_text.strip()
 
 
-def save_outfit(screen, pos):
+def save_outfit(screen, x, y):
     screenshot = pygame.Surface((1920, 1080))
     screenshot.blit(screen, (0,0))
     screenshot_data = pygame.image.tobytes(screenshot, "RGB")
@@ -168,9 +164,7 @@ def save_outfit(screen, pos):
     cropped_size = (720, 50, 1195, 890)
     cropped_image = full_image.crop(cropped_size)
 
-    x, y = pos
-
-    #outfit_name = get_outfit_name(screen)
+    #x, y = pos
     
     if 250 <= x <= 330 and 600 <= y <= 680:
         cropped_image.save(f"seasons/spring/{get_outfit_name(screen, 'seasons/spring')}.png")
@@ -184,8 +178,19 @@ def save_outfit(screen, pos):
         return
 
 
+def randomize_item(item_list, item_index):
+    ...
+
+
+def randomize_outfit(tops_list, tops_index, bottoms_list, bottoms_index, shoes_list, shoes_index, x, y):
+    if 250 <= x <= 330 and 600 <= y <= 680:
+        randomize_item(tops_list, tops_index)
+
+
 def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list, 
                          bottoms_index, shoes_list, shoes_index, pos):
+    x, y = pos 
+
     if name == 'tops_arrow_r':
         tops_index = change_clothes(tops_list, tops_index, arrow=1)
     if name == 'tops_arrow_l':
@@ -199,7 +204,9 @@ def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list,
     if name == 'shoes_arrow_l':
         shoes_index = change_clothes(shoes_list, shoes_index, arrow=2)
     if name == 'save_image':
-        save_outfit(screen, pos)
+        save_outfit(screen, x, y)
+    if name == 'randomize':
+        randomize_outfit(tops_list, tops_index, bottoms_list, bottoms_index, shoes_list, shoes_index, x, y)
 
     pygame.time.wait(300)
     return tops_index, bottoms_index, shoes_index
@@ -207,8 +214,7 @@ def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list,
 
 def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
                 bottoms_index, shoes_list, shoes_index):
-    #buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
-                          #bottoms_list, bottoms_index, shoes_list, shoes_index)
+    
     running = True
     while running: 
         for event in pygame.event.get():
