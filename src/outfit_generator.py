@@ -99,6 +99,11 @@ def change_clothes(clothes_list, clothes_index, arrow):
             clothes_index = (len(clothes_list)-1)
     return clothes_index
 
+
+def get_outfit_name():
+    ...
+
+
 def save_outfit(screen, pos):
     screenshot = pygame.Surface((1920, 1080))
     screenshot.blit(screen, (0,0))
@@ -106,7 +111,7 @@ def save_outfit(screen, pos):
 
     full_image = Image.frombytes("RGB", (1920, 1080), screenshot_data)
 
-    cropped_size = (720, 60, 1195, 1020)
+    cropped_size = (720, 50, 1195, 890)
 
     cropped_image = full_image.crop(cropped_size)
     if pos >= (250, 600) and pos <= (330, 680):
