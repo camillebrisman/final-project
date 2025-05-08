@@ -5,6 +5,7 @@ import pygame
 
 pygame.init()
 RESOLUTION = (1920, 1080)
+CLOCK = pygame.time.Clock()
 
 
 def sort_images(folder, items_list):
@@ -104,34 +105,57 @@ def change_clothes(clothes_list, clothes_index, arrow):
     return clothes_index
 
 
-def get_outfit_name(screen):
-    base_font = pygame.font.Font(None, 32)
+def unnamed_outfit(folder):
+    folder_path = os.path.abspath(folder)
+    folder_name = os.path.basename(folder)
+    img_number = 1
+	
+    for filename in os.listdir(folder_path):
+        if filename.startswith(folder_name) and filename.endswith(".png"):
+            img_number += 1
+
+    new_filename = f"{folder_name}_{img_number:04}"
+
+    return new_filename
+
+
+def load_text(prompt, user_text, base_font, screen):
+    text_area_rect = pygame.Rect(30, 690, 400, 40)
+    screen.fill((0, 0, 0), text_area_rect)
+
+    full_text = prompt + user_text
+    text_surface = base_font.render(full_text, True, (200, 100, 150))
+    screen.blit(text_surface, (30, 690))
+    pygame.display.flip()
+    CLOCK.tick(30)
+
+
+def get_outfit_name(screen, folder_path):
+    base_font = pygame.font.Font(None, 28)
     prompt = 'Input outfit name: '
     user_text = ''
 
-    #text_surface = base_font.render(user_text, True, (200, 100, 150))
-    #screen.blit(text_surface, (45, 690))
-
-    clock = pygame.time.Clock()
     getting_input = True
     while getting_input:
-        #screen.blit(text_surface, (45, 690))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     getting_input = False
-                if event.type == pygame.K_BACKSPACE:
-                    user_text = user_text[18:-1]
+                if event.key == pygame.K_BACKSPACE:
+                    user_text = user_text[:-1]
                 else:
                     user_text += event.unicode
-        full_text = prompt + user_text
-        text_surface = base_font.render(full_text, True, (200, 100, 150))
-        screen.blit(text_surface, (45, 690))
-        pygame.display.flip()
-        clock.tick(30)
-    return user_text
+        #full_text = prompt + user_text
+        #text_surface = base_font.render(full_text, True, (200, 100, 150))
+        #screen.blit(text_surface, (30, 690))
+        #pygame.display.flip()
+        #CLOCK.tick(30)
+            load_text(prompt, user_text, base_font, screen)
+    if not user_text.strip():
+        user_text = unnamed_outfit(folder_path)
+    return user_text.strip()
 
 
 def save_outfit(screen, pos):
@@ -146,17 +170,16 @@ def save_outfit(screen, pos):
 
     x, y = pos
 
-    get_outfit_name(screen)
+    #outfit_name = get_outfit_name(screen)
     
-
     if 250 <= x <= 330 and 600 <= y <= 680:
-        cropped_image.save("seasons/spring/outfit.png")
+        cropped_image.save(f"seasons/spring/{get_outfit_name(screen, 'seasons/spring')}.png")
     if 250 <= x <= 330 and 750 <= y <= 840:
-        cropped_image.save("seasons/fall/outfit.png")
+        cropped_image.save(f"seasons/fall/{get_outfit_name(screen, 'seasons/fall')}.png")
     if 65 <= x <= 140 and 600 <= y <= 680:
-        cropped_image.save("seasons/winter/outfit.png")
+        cropped_image.save(f"seasons/winter/{get_outfit_name(screen, 'seasons/winter')}.png")
     if 65 <= x <= 140 and 750 <= y <= 840:
-        cropped_image.save("seasons/summer/outfit.png")
+        cropped_image.save(f"seasons/summer/{get_outfit_name(screen, 'seasons/summer')}.png")
     else:
         return
 
