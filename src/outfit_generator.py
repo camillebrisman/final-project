@@ -46,7 +46,7 @@ def paste_image(screen, item, location_x, location_y, items_index):
 
 
 def paste_background(screen, items_index):
-    arrow_buttons = {}
+    buttons = {}
 
     save_image = "background/save_group.png"
     right_arrow = "background/right_arrow.png"
@@ -55,22 +55,22 @@ def paste_background(screen, items_index):
     randomize_group = "background/randomize_group.png"
 
     paste_image(screen, save_image, 0, (500), items_index)
-    arrow_buttons['tops_arrow_r'] = paste_image(screen, right_arrow, 
+    buttons['tops_arrow_r'] = paste_image(screen, right_arrow, 
                                           1150, 60, items_index)
-    arrow_buttons['bottoms_arrow_r'] = paste_image(screen, right_arrow, 
+    buttons['bottoms_arrow_r'] = paste_image(screen, right_arrow, 
                                              1150, 400, items_index)
-    arrow_buttons['shoes_arrow_r'] = paste_image(screen, right_arrow, 
+    buttons['shoes_arrow_r'] = paste_image(screen, right_arrow, 
                                            1150, 740, items_index)
-    arrow_buttons['tops_arrow_l'] = paste_image(screen, left_arrow, 
+    buttons['tops_arrow_l'] = paste_image(screen, left_arrow, 
                                           550, 60, items_index)
-    arrow_buttons['bottoms_arrow_l'] = paste_image(screen, left_arrow, 
+    buttons['bottoms_arrow_l'] = paste_image(screen, left_arrow, 
                                              550, 400, items_index)
-    arrow_buttons['shoes_arrow_l'] = paste_image(screen, left_arrow, 
+    buttons['shoes_arrow_l'] = paste_image(screen, left_arrow, 
                                            550, 740, items_index)
     paste_image(screen, title_icon, 0, 0, items_index)
     paste_image(screen, randomize_group, 1400, 325, items_index)
 
-    return arrow_buttons
+    return buttons
 
 
 def paste_clothes(screen, tops_list, bottoms_list, shoes_list, items_index):
@@ -128,12 +128,12 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
         
-        arrow_buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
+        buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
                                     bottoms_list, bottoms_index, shoes_list, shoes_index)
         
 
         pos = pygame.mouse.get_pos()
-        for name, rect in arrow_buttons.items():
+        for name, rect in buttons.items():
             if rect.collidepoint(pos):
                 print(f"hovering over: {name}")
                 if pygame.mouse.get_pressed()[0]:
