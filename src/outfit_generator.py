@@ -113,6 +113,10 @@ def save_outfit(screen, pos):
         cropped_image.save("seasons/spring/outfit.png")
     if pos >= (250, 750) and pos <= (330, 840):
         cropped_image.save("seasons/fall/outfit.png")
+    if pos >= (65, 600) and pos <= (140, 680):
+        cropped_image.save("seasons/winter/outfit.png")
+    if pos >= (65, 750) and pos <= (140, 840):
+        cropped_image.save("seasons/summer/outfit.png")
 
 
 def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list, 
