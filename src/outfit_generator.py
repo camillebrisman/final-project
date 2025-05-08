@@ -120,8 +120,8 @@ def unnamed_outfit(folder):
 
 
 def load_text(prompt, user_text, base_font, screen):
-    text_area_rect = pygame.Rect(30, 690, 400, 40)
-    screen.fill((0, 0, 0), text_area_rect)
+    text_area_rect = pygame.Rect(30, 690, 350, 40)
+    screen.fill((255, 255, 255), text_area_rect)
 
     full_text = prompt + user_text
     text_surface = base_font.render(full_text, True, (200, 100, 150))
