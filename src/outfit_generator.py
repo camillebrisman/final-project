@@ -54,7 +54,7 @@ def paste_background(screen, items_index):
     title_icon = "background/title_icon.png"
     randomize_group = "background/randomize_group.png"
 
-    paste_image(screen, save_image, 0, (500), items_index)
+    buttons['save_image'] = paste_image(screen, save_image, 0, 500, items_index)
     buttons['tops_arrow_r'] = paste_image(screen, right_arrow, 
                                           1150, 60, items_index)
     buttons['bottoms_arrow_r'] = paste_image(screen, right_arrow, 
@@ -82,10 +82,10 @@ def paste_clothes(screen, tops_list, bottoms_list, shoes_list, items_index):
 def load_screen(screen, bg_tile, tops_list, tops_index, bottoms_list, bottoms_index, 
                       shoes_list, shoes_index):
     screen.blit(bg_tile, (0,0))
-    arrow_buttons = paste_background(screen, items_index=1)
+    buttons = paste_background(screen, items_index=1)
     paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
                   shoes_list[shoes_index], items_index=0)
-    return arrow_buttons
+    return buttons
 
 
 def change_clothes(clothes_list, clothes_index, arrow):
@@ -99,8 +99,13 @@ def change_clothes(clothes_list, clothes_index, arrow):
             clothes_index = (len(clothes_list)-1)
     return clothes_index
 
+def save_outfit(screen):
+    screenshot = pygame.Surface((1920, 1080))
+    screenshot.blit(screen, (0,0))
+    pygame.image.save(screenshot, "seasons/outfit.png")
 
-def cycle_through_images(name, tops_list, tops_index, bottoms_list, 
+
+def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list, 
                          bottoms_index, shoes_list, shoes_index):
     if name == 'tops_arrow_r':
         tops_index = change_clothes(tops_list, tops_index, arrow=1)
@@ -114,6 +119,8 @@ def cycle_through_images(name, tops_list, tops_index, bottoms_list,
         shoes_index = change_clothes(shoes_list, shoes_index, arrow=1)
     if name == 'shoes_arrow_l':
         shoes_index = change_clothes(shoes_list, shoes_index, arrow=2)
+    if name == 'save_image':
+        save_outfit(screen)
 
     pygame.time.wait(300)
     return tops_index, bottoms_index, shoes_index
@@ -136,7 +143,7 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
         for name, rect in buttons.items():
             if rect.collidepoint(pos):
                 if pygame.mouse.get_pressed()[0]:
-                    tops_index, bottoms_index, shoes_index = cycle_through_images(name, tops_list, tops_index, 
+                    tops_index, bottoms_index, shoes_index = clicked_buttons(screen, name, tops_list, tops_index, 
                                                                                   bottoms_list, bottoms_index, 
                                                                                   shoes_list, shoes_index)
                 paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
