@@ -105,11 +105,33 @@ def change_clothes(clothes_list, clothes_index, arrow):
 
 
 def get_outfit_name(screen):
-    base_font = pygame.font.Font(None, 50)
-    user_text = 'NAME'
+    base_font = pygame.font.Font(None, 32)
+    prompt = 'Input outfit name: '
+    user_text = ''
 
-    text_surface = base_font.render(user_text, True, (0, 0, 0))
-    screen.blit(text_surface, (45, 690))
+    #text_surface = base_font.render(user_text, True, (200, 100, 150))
+    #screen.blit(text_surface, (45, 690))
+
+    clock = pygame.time.Clock()
+    getting_input = True
+    while getting_input:
+        #screen.blit(text_surface, (45, 690))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    getting_input = False
+                if event.type == pygame.K_BACKSPACE:
+                    user_text = user_text[18:-1]
+                else:
+                    user_text += event.unicode
+        full_text = prompt + user_text
+        text_surface = base_font.render(full_text, True, (200, 100, 150))
+        screen.blit(text_surface, (45, 690))
+        pygame.display.flip()
+        clock.tick(30)
+    return user_text
 
 
 def save_outfit(screen, pos):
@@ -125,6 +147,7 @@ def save_outfit(screen, pos):
     x, y = pos
 
     get_outfit_name(screen)
+    
 
     if 250 <= x <= 330 and 600 <= y <= 680:
         cropped_image.save("seasons/spring/outfit.png")
@@ -161,8 +184,8 @@ def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list,
 
 def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
                 bottoms_index, shoes_list, shoes_index):
-    buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
-                          bottoms_list, bottoms_index, shoes_list, shoes_index)
+    #buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
+                          #bottoms_list, bottoms_index, shoes_list, shoes_index)
     running = True
     while running: 
         for event in pygame.event.get():
@@ -170,8 +193,8 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
         
-        #buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
-                                    #bottoms_list, bottoms_index, shoes_list, shoes_index)
+        buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
+                                    bottoms_list, bottoms_index, shoes_list, shoes_index)
         
 
         pos = pygame.mouse.get_pos()
