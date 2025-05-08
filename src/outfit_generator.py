@@ -1,6 +1,11 @@
 from PIL import Image
 import os
 import pygame
+import pygame_gui
+
+
+RESOLUTION = (1920, 1080)
+#MANAGER = pygame_gui.UIManager((RESOLUTION))
 
 
 def sort_images(folder, items_list):
@@ -101,6 +106,7 @@ def change_clothes(clothes_list, clothes_index, arrow):
 
 
 def get_outfit_name():
+    #text_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect(()))
     ...
 
 
@@ -112,16 +118,20 @@ def save_outfit(screen, pos):
     full_image = Image.frombytes("RGB", (1920, 1080), screenshot_data)
 
     cropped_size = (720, 50, 1195, 890)
-
     cropped_image = full_image.crop(cropped_size)
-    if pos >= (250, 600) and pos <= (330, 680):
+
+    x, y = pos
+
+    if 250 <= x <= 330 and 600 <= y <= 680:
         cropped_image.save("seasons/spring/outfit.png")
-    if pos >= (250, 750) and pos <= (330, 840):
+    if 250 <= x <= 330 and 750 <= y <= 840:
         cropped_image.save("seasons/fall/outfit.png")
-    if pos >= (65, 600) and pos <= (140, 680):
+    if 65 <= x <= 140 and 600 <= y <= 680:
         cropped_image.save("seasons/winter/outfit.png")
-    if pos >= (65, 750) and pos <= (140, 840):
+    if 65 <= x <= 140 and 750 <= y <= 840:
         cropped_image.save("seasons/summer/outfit.png")
+    else:
+        return
 
 
 def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list, 
@@ -176,8 +186,8 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
 
 def main():
     pygame.display.set_caption("Cher's Outfit Generator")
-    resolution = (1920, 1080)
-    screen = pygame.display.set_mode(resolution)
+    #resolution = (1920, 1080)
+    screen = pygame.display.set_mode(RESOLUTION)
     bg_tile = (pygame.image.load("background/background.png").convert())
     tops_list = []
     tops_index = 0
