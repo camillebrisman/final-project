@@ -42,7 +42,7 @@ def paste_image(screen, item, location_x, location_y, items_index):
         screen.blit(image, (x, location_y))
     if items_index == 1:
         screen.blit(image, (location_x, location_y))
-        return pygame.Rect(x, location_y, image.get_width(), image.get_height())
+        return pygame.Rect(location_x, location_y, image.get_width(), image.get_height())
 
 
 def paste_background(screen, items_index):
@@ -79,6 +79,15 @@ def paste_clothes(screen, tops_list, bottoms_list, shoes_list, items_index):
     paste_image(screen, shoes_list, 0, 740, items_index)
 
 
+def load_screen(screen, bg_tile, tops_list, tops_index, bottoms_list, bottoms_index, 
+                      shoes_list, shoes_index):
+    screen.blit(bg_tile, (0,0))
+    arrow_buttons = paste_background(screen, items_index=1)
+    paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
+                  shoes_list[shoes_index], items_index=0)
+    return arrow_buttons
+
+
 def change_clothes(clothes_list, clothes_index, arrow):
     if arrow ==1:
         clothes_index += 1
@@ -91,6 +100,25 @@ def change_clothes(clothes_list, clothes_index, arrow):
     return clothes_index
 
 
+def cycle_through_images(name, screen, tops_list, tops_index, bottoms_list, 
+                         bottoms_index, shoes_list, shoes_index):
+    if name == 'tops_arrow_r':
+        tops_index = change_clothes(tops_list, tops_index, arrow=1)
+        pygame.time.wait(300)
+        print(f"{name}")
+        return tops_index
+            #if name == 'tops_arrow_l':
+             #   tops_index = change_clothes(tops_list, tops_index, arrow=2)
+              #  pygame.time.wait(300)
+               # print(f"{name}")
+            #if name == 'bottoms_arrow_r':
+             #   bottoms_index = change_clothes(bottoms_list, bottoms_index, arrow=1)
+              #  pygame.time.wait(300)
+               # print(f"{name}")
+    #paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
+                  #shoes_list[shoes_index], items_index=0)
+
+
 def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
                 bottoms_index, shoes_list, shoes_index):
     running = True
@@ -100,21 +128,36 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
         
-        screen.blit(bg_tile, (0,0))
-        arrow_buttons = paste_background(screen, items_index=1)
-        paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
-                      shoes_list[shoes_index], items_index=0)
+        arrow_buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
+                                    bottoms_list, bottoms_index, shoes_list, shoes_index)
+        #screen.blit(bg_tile, (0,0))
+        #arrow_buttons = paste_background(screen, items_index=1)
+        #paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
+                      #shoes_list[shoes_index], items_index=0)
         
         pos = pygame.mouse.get_pos()
         for name, rect in arrow_buttons.items():
             if rect.collidepoint(pos):
                 print(f"hovering over: {name}")
-            if pygame.mouse.get_pressed()[0]:
-                if name == 'tops_arrow_r':
-                    tops_index = change_clothes(tops_list, tops_index, arrow=1)
-                    pygame.time.wait(300)
-                    paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
-                                  shoes_list[shoes_index], items_index=0)
+                if pygame.mouse.get_pressed()[0]:
+                    tops_index = cycle_through_images(name, screen, tops_list, tops_index, bottoms_list, 
+                                                      bottoms_index, shoes_list, shoes_index)
+                paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
+                              shoes_list[shoes_index], items_index=0)
+                #if name == 'tops_arrow_r':
+                    #tops_index = change_clothes(tops_list, tops_index, arrow=1)
+                    #pygame.time.wait(300)
+                    #print(f"{name}")
+                #if name == 'tops_arrow_l':
+                    #tops_index = change_clothes(tops_list, tops_index, arrow=2)
+                    #pygame.time.wait(300)
+                    #print(f"{name}")
+                #if name == 'bottoms_arrow_r':
+                    #bottoms_index = change_clothes(bottoms_list, bottoms_index, arrow=1)
+                    #pygame.time.wait(300)
+                    #print(f"{name}")
+                #paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
+                              #shoes_list[shoes_index], items_index=0)
 
         pygame.display.flip()
     pygame.quit()
