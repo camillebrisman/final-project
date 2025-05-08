@@ -104,13 +104,8 @@ def cycle_through_images(name, tops_list, tops_index, bottoms_list,
                          bottoms_index, shoes_list, shoes_index):
     if name == 'tops_arrow_r':
         tops_index = change_clothes(tops_list, tops_index, arrow=1)
-        #pygame.time.wait(300)
-        #print(f"{name}")
-        #return tops_index
     if name == 'tops_arrow_l':
         tops_index = change_clothes(tops_list, tops_index, arrow=2)
-    #pygame.time.wait(300)
-    #return tops_index
     if name == 'bottoms_arrow_r':
         bottoms_index = change_clothes(bottoms_list, bottoms_index, arrow=1)
     if name == 'bottoms_arrow_l':
@@ -119,10 +114,7 @@ def cycle_through_images(name, tops_list, tops_index, bottoms_list,
         shoes_index = change_clothes(shoes_list, shoes_index, arrow=1)
     if name == 'shoes_arrow_l':
         shoes_index = change_clothes(shoes_list, shoes_index, arrow=2)
-              #  pygame.time.wait(300)
-               # print(f"{name}")
-    #paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
-                  #shoes_list[shoes_index], items_index=0)
+
     pygame.time.wait(300)
     return tops_index, bottoms_index, shoes_index
 
