@@ -102,7 +102,14 @@ def change_clothes(clothes_list, clothes_index, arrow):
 def save_outfit(screen):
     screenshot = pygame.Surface((1920, 1080))
     screenshot.blit(screen, (0,0))
-    pygame.image.save(screenshot, "seasons/outfit.png")
+    screenshot_data = pygame.image.tostring(screenshot, "RGB")
+
+    full_image = Image.frombytes("RGB", (1920, 1080), screenshot_data)
+
+    cropped_size = (720, 60, 1195, 1020)
+
+    cropped_image = full_image.crop(cropped_size)
+    cropped_image.save("seasons/outfit.png")
 
 
 def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list, 
