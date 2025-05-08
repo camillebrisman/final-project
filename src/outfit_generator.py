@@ -135,7 +135,6 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
         pos = pygame.mouse.get_pos()
         for name, rect in buttons.items():
             if rect.collidepoint(pos):
-                print(f"hovering over: {name}")
                 if pygame.mouse.get_pressed()[0]:
                     tops_index, bottoms_index, shoes_index = cycle_through_images(name, tops_list, tops_index, 
                                                                                   bottoms_list, bottoms_index, 
