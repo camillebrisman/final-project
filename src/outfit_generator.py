@@ -1,11 +1,10 @@
 from PIL import Image
 import os
 import pygame
-import pygame_gui
 
 
+pygame.init()
 RESOLUTION = (1920, 1080)
-#MANAGER = pygame_gui.UIManager((RESOLUTION))
 
 
 def sort_images(folder, items_list):
@@ -105,15 +104,18 @@ def change_clothes(clothes_list, clothes_index, arrow):
     return clothes_index
 
 
-def get_outfit_name():
-    #text_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect(()))
-    ...
+def get_outfit_name(screen):
+    base_font = pygame.font.Font(None, 50)
+    user_text = 'NAME'
+
+    text_surface = base_font.render(user_text, True, (0, 0, 0))
+    screen.blit(text_surface, (45, 690))
 
 
 def save_outfit(screen, pos):
     screenshot = pygame.Surface((1920, 1080))
     screenshot.blit(screen, (0,0))
-    screenshot_data = pygame.image.tostring(screenshot, "RGB")
+    screenshot_data = pygame.image.tobytes(screenshot, "RGB")
 
     full_image = Image.frombytes("RGB", (1920, 1080), screenshot_data)
 
@@ -121,6 +123,8 @@ def save_outfit(screen, pos):
     cropped_image = full_image.crop(cropped_size)
 
     x, y = pos
+
+    get_outfit_name(screen)
 
     if 250 <= x <= 330 and 600 <= y <= 680:
         cropped_image.save("seasons/spring/outfit.png")
@@ -157,6 +161,8 @@ def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list,
 
 def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
                 bottoms_index, shoes_list, shoes_index):
+    buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
+                          bottoms_list, bottoms_index, shoes_list, shoes_index)
     running = True
     while running: 
         for event in pygame.event.get():
@@ -164,8 +170,8 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 running = False
         
-        buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
-                                    bottoms_list, bottoms_index, shoes_list, shoes_index)
+        #buttons = load_screen(screen, bg_tile, tops_list, tops_index, 
+                                    #bottoms_list, bottoms_index, shoes_list, shoes_index)
         
 
         pos = pygame.mouse.get_pos()
