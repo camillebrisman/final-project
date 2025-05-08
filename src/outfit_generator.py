@@ -99,7 +99,7 @@ def change_clothes(clothes_list, clothes_index, arrow):
             clothes_index = (len(clothes_list)-1)
     return clothes_index
 
-def save_outfit(screen):
+def save_outfit(screen, pos):
     screenshot = pygame.Surface((1920, 1080))
     screenshot.blit(screen, (0,0))
     screenshot_data = pygame.image.tostring(screenshot, "RGB")
@@ -109,11 +109,14 @@ def save_outfit(screen):
     cropped_size = (720, 60, 1195, 1020)
 
     cropped_image = full_image.crop(cropped_size)
-    cropped_image.save("seasons/outfit.png")
+    if pos >= (250, 600) and pos <= (330, 680):
+        cropped_image.save("seasons/spring/outfit.png")
+    if pos >= (250, 750) and pos <= (330, 840):
+        cropped_image.save("seasons/fall/outfit.png")
 
 
 def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list, 
-                         bottoms_index, shoes_list, shoes_index):
+                         bottoms_index, shoes_list, shoes_index, pos):
     if name == 'tops_arrow_r':
         tops_index = change_clothes(tops_list, tops_index, arrow=1)
     if name == 'tops_arrow_l':
@@ -127,7 +130,7 @@ def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list,
     if name == 'shoes_arrow_l':
         shoes_index = change_clothes(shoes_list, shoes_index, arrow=2)
     if name == 'save_image':
-        save_outfit(screen)
+        save_outfit(screen, pos)
 
     pygame.time.wait(300)
     return tops_index, bottoms_index, shoes_index
@@ -150,9 +153,10 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
         for name, rect in buttons.items():
             if rect.collidepoint(pos):
                 if pygame.mouse.get_pressed()[0]:
+                    print(pos)
                     tops_index, bottoms_index, shoes_index = clicked_buttons(screen, name, tops_list, tops_index, 
                                                                                   bottoms_list, bottoms_index, 
-                                                                                  shoes_list, shoes_index)
+                                                                                  shoes_list, shoes_index, pos)
                 paste_clothes(screen, tops_list[tops_index], bottoms_list[bottoms_index], 
                               shoes_list[shoes_index], items_index=0)
 
