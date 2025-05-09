@@ -1,6 +1,7 @@
 from PIL import Image
 import os
 import pygame
+import random
 
 
 pygame.init()
@@ -178,13 +179,23 @@ def save_outfit(screen, x, y):
         return
 
 
-def randomize_item(item_list, item_index):
-    ...
+def randomize_item(item_list):
+    item_index = random.randrange(len(item_list))
+    return item_index
 
 
 def randomize_outfit(tops_list, tops_index, bottoms_list, bottoms_index, shoes_list, shoes_index, x, y):
-    if 250 <= x <= 330 and 600 <= y <= 680:
-        randomize_item(tops_list, tops_index)
+    if 1600 <= x <= 1775 and 455 <= y <= 485:
+        tops_index = randomize_item(tops_list)
+    if 1600 <= x <= 1775 and 495 <= y <= 525:
+        bottoms_index = randomize_item(bottoms_list)
+    if 1600 <= x <= 1775 and 535 <= y <= 560:
+        shoes_index = randomize_item(shoes_list)
+    if 1600 <= x <= 1775 and 570 <= y <= 600:
+        tops_index = randomize_item(tops_list)
+        bottoms_index = randomize_item(bottoms_list)
+        shoes_index = randomize_item(shoes_list)
+    return tops_index, bottoms_index, shoes_index
 
 
 def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list, 
@@ -206,7 +217,8 @@ def clicked_buttons(screen, name, tops_list, tops_index, bottoms_list,
     if name == 'save_image':
         save_outfit(screen, x, y)
     if name == 'randomize':
-        randomize_outfit(tops_list, tops_index, bottoms_list, bottoms_index, shoes_list, shoes_index, x, y)
+        tops_index, bottoms_index, shoes_index = randomize_outfit(tops_list, tops_index, bottoms_list, bottoms_index, 
+                                                                  shoes_list, shoes_index, x, y)
 
     pygame.time.wait(300)
     return tops_index, bottoms_index, shoes_index
