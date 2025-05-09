@@ -165,7 +165,6 @@ def save_outfit(screen, x, y):
     cropped_size = (720, 50, 1195, 890)
     cropped_image = full_image.crop(cropped_size)
 
-    #x, y = pos
     
     if 250 <= x <= 330 and 600 <= y <= 680:
         cropped_image.save(f"seasons/spring/{get_outfit_name(screen, 'seasons/spring')}.png")
@@ -242,7 +241,6 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
         for name, rect in buttons.items():
             if rect.collidepoint(pos):
                 if pygame.mouse.get_pressed()[0]:
-                    print(pos)
                     tops_index, bottoms_index, shoes_index = clicked_buttons(screen, name, tops_list, tops_index, 
                                                                                   bottoms_list, bottoms_index, 
                                                                                   shoes_list, shoes_index, pos)
@@ -256,7 +254,6 @@ def run_program(screen, bg_tile, tops_list, tops_index, bottoms_list,
 
 def main():
     pygame.display.set_caption("Cher's Outfit Generator")
-    #resolution = (1920, 1080)
     screen = pygame.display.set_mode(RESOLUTION)
     bg_tile = (pygame.image.load("background/background.png").convert())
     tops_list = []
