@@ -22,12 +22,14 @@ similarly to the iconic outfit generator from the movie *Clueless*.
 ## Set Up
 1. Install 3rd party libraries listed in the requirements.txt
 2. Upload images of clothing items into their corresponding folders (upload
-   tops into the tops folder, etc.)
+   tops into the "tops" folder, etc.)
 - NOTE: 
-    1. Example images of clothing are provided in the tops, bottoms, and shoes
-       folders-- can be removed and replaceed for a personalized experience.
-    2. If uploading images, ensure that the file types are identifiable 
-       (no avif files, etc.).
+    1. Example images of clothing are provided in the "tops", "bottoms", and 
+       "shoes" folders-- these can be removed and replaceed for a personalized 
+       experience.
+    2. If uploading images, ensure that the file types are identifiable--
+       for example, some identifiable file types include .png or .jpg, and some
+       non-identifiable file types include .avif files.
 
 ## Folder Structure
 1. Folders should follow this layout:
@@ -53,14 +55,14 @@ src/
     └── winter/
 
 2. Uploaded images of clothing are stored in their respective folders (tops in 
-   the tops folder, etc.).
-3. Saved outfits are stored in the seasons subfolder that was chosen when the
+   the "tops" folder, etc.).
+3. Saved outfits are stored in the "seasons" subfolder that was chosen when the
    outfit was saved.
 
 ## Running The Program
-- When the program is run, all images in the tops, bottoms, and shoes folders 
-  will be automatically renamed and resized for organization and display 
-  purposes.
+- When the program is run, all images in the "tops", "bottoms", and "shoes" 
+  folders will be automatically renamed and resized for organization and 
+  display purposes.
 - The user can cycle forwards and backwards through each clothing catagory 
   using the left and right arrows on the sides of the images.
 - To randomize items in a catagory, the user can click on the title of the
@@ -83,7 +85,7 @@ src/
 ## Additional Notes
 - Program should be run in full HD resolution (1920 x 1080)
 - Do not remove or modify images* in the "background" folder
-- When the program is run, images in the "tops", "shoes", and "bottoms" folders
+- When the program is run, images in the "tops", "bottoms", and "shoes" folders
   will be saved as .jpgs so that the item of clothing has a border and is not 
   displayed directly onto the background.
 
