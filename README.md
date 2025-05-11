@@ -34,6 +34,7 @@ similarly to the iconic outfit generator from the movie *Clueless*.
 ## Folder Structure
 1. Folders should follow this layout:
 
+```
     src/
     │
     ├── background/
@@ -53,6 +54,7 @@ similarly to the iconic outfit generator from the movie *Clueless*.
         ├── summer/
         ├── fall/
         └── winter/
+```
 
 2. Uploaded images of clothing are stored in their respective folders (tops in 
    the "tops" folder, etc.).
