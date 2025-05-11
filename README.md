@@ -25,7 +25,7 @@ similarly to the iconic outfit generator from the movie *Clueless*.
    tops into the "tops" folder, etc.)
 - NOTE: 
     1. Example images of clothing are provided in the "tops", "bottoms", and 
-       "shoes" folders-- these can be removed and replaceed for a personalized 
+       "shoes" folders-- these can be removed and replaced for a personalized 
        experience.
     2. If uploading images, ensure that the file types are identifiable--
        for example, some identifiable file types include .png or .jpg, and some
@@ -84,10 +84,16 @@ src/
 
 ## Additional Notes
 - Program should be run in full HD resolution (1920 x 1080)
-- Do not remove or modify images* in the "background" folder
+- Do not remove or modify images* in the "background" folder -- this folder
+  contains the graphics used to create buttons and the background display.
 - When the program is run, images in the "tops", "bottoms", and "shoes" folders
   will be saved as .jpgs so that the item of clothing has a border and is not 
   displayed directly onto the background.
 
 *if desired the "background.png" image in the "background" folder may be 
 replaced by a 1920 x 1080 .png image titled "background.png".
+
+## Resources
+- https://www.youtube.com/shorts/ww57H0n9has
+- https://www.youtube.com/watch?v=Rvcyf4HsWiw
+- https://www.youtube.com/watch?v=G8MYGDf_9ho
