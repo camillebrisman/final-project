@@ -4,7 +4,7 @@
 Demo Video: <URL>
 
 ## GitHub Repository
-GitHub Repo: <URL>
+GitHub Repo: <https://github.com/camillebrisman/final-project.git>
 
 ## Description
 Cher's Outfit Generator is a program that allows the user to create, save, and 
@@ -34,25 +34,25 @@ similarly to the iconic outfit generator from the movie *Clueless*.
 ## Folder Structure
 1. Folders should follow this layout:
 
-src/
-│
-├── background/
-│   ├── background.png
-│   ├── title_icon.png
-│   ├── save_group.png
-│   ├── right_arrow.png
-│   ├── left_arrow.png
-│   └── randomize_group.png
-│
-├── tops/
-├── bottoms/
-├── shoes/
-│
-└── seasons/
-    ├── spring/
-    ├── summer/
-    ├── fall/
-    └── winter/
+    src/
+    │
+    ├── background/
+    │   ├── background.png
+    │   ├── title_icon.png
+    │   ├── save_group.png
+    │   ├── right_arrow.png
+    │   ├── left_arrow.png
+    │   └── randomize_group.png
+    │
+    ├── tops/
+    ├── bottoms/
+    ├── shoes/
+    │
+    └── seasons/
+        ├── spring/
+        ├── summer/
+        ├── fall/
+        └── winter/
 
 2. Uploaded images of clothing are stored in their respective folders (tops in 
    the "tops" folder, etc.).
