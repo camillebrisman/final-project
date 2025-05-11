@@ -63,7 +63,7 @@ similarly to the iconic outfit generator from the movie *Clueless*.
 
 ## Running The Program
 - When the program is run, all images in the "tops", "bottoms", and "shoes" 
-  folders will be automatically renamed and resized for organization and 
+  folders will be automatically renamed and resized for organizational and 
   display purposes.
 - The user can cycle forwards and backwards through each clothing catagory 
   using the left and right arrows on the sides of the images.
