@@ -1,7 +1,7 @@
 # Cher's Outfit Generator
 
 ## Demo
-Demo Video: <URL>
+Demo Video: <https://youtu.be/vLC1Rxa-ugc>
 
 ## GitHub Repository
 GitHub Repo: <https://github.com/camillebrisman/final-project.git>
